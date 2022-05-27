@@ -4,6 +4,11 @@ from flask_cors import CORS, cross_origin
 
 app = Flask(__name__, static_folder='my-app/build', static_url_path='')
 
+@app.route('/login', methods=['GET'])
+def logged_in():
+    return 'True'
+
+
 @app.route('/api', methods=['GET'])
 @cross_origin(app)
 def index():
