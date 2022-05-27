@@ -17,3 +17,21 @@ def serve():
 
 if __name__ == '__main__':
     app.run(host='127.0.0.1', port=5001, debug=True)
+    
+    
+class Barber:
+    clients = []
+    
+    def __init__(self):
+        pass
+    
+    def add_client(self, client):
+        self.clients.append(client)
+        
+class Client:
+    appointment = []
+    
+    def __init__(self):
+        pass
+    def add_appointment(self, appointment):
+        self.appointment.append(appointment)
