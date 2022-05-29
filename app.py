@@ -40,3 +40,10 @@ class Client:
         pass
     def add_appointment(self, appointment):
         self.appointment.append(appointment)
+        
+class Appointment:
+    
+    def __init__(self, barberName, date):
+        self.barberName = barberName
+        self.date = date
+    
