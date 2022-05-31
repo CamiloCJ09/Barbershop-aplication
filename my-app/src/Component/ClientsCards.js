@@ -1,19 +1,17 @@
+
 import { Card } from "@mui/material";
 import * as React from "react";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import { CardActionArea } from "@mui/material";
-import "./styles/cards.css";
-//import Grid from "@mui/material/Grid";
-//import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
+import {UserData} from "./UserData";
 import {useState} from 'react';
-import {BarberData} from "./BarberData";
-export const PageCards = () => {
+export const ClientsCards = ({ user, handleClick }) => {
   const [clicked, setClicked] = useState(false);
-  return (
-    <div>
+    return (
+      <div>
       {
         !clicked ? (
           <Stack direction="row" spacing={2} className= "card">
@@ -32,7 +30,7 @@ export const PageCards = () => {
               />
               <CardContent>
                 <Typography gutterBottom variant="h5" component="div">
-                  Barbero
+                  Cliente
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
                   barbers are a widespread group of squamate reptiles, with over
@@ -45,12 +43,14 @@ export const PageCards = () => {
     
           <Card sx={{ maxWidth: 345 }}>
             <CardActionArea
-                 onClick={
-                  () => {
-                    console.log("clicked");
-                    setClicked(true);
-                  }
+            
+              onClick={
+                () => {
+                  console.log("clicked");
+                  setClicked(true);
                 }
+              }
+            
             >
               <CardMedia
                 component="img"
@@ -60,7 +60,7 @@ export const PageCards = () => {
               />
               <CardContent>
                 <Typography gutterBottom variant="h5" component="div">
-                  Barbero 2
+                  Cliente 2
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
                   barbers are a widespread group of squamate reptiles, with over
@@ -72,12 +72,12 @@ export const PageCards = () => {
     
     
         </Stack>) : (
-          <div id = "album">
+          <div id="album">
             <h1>Album</h1>
-            <BarberData />
+            <UserData/>
           </div>
         )
       }
     </div>
-  );
-};
+    );
+}
