@@ -8,6 +8,8 @@ import PhotoAlbumIcon from '@mui/icons-material/PhotoAlbum';
 import PeopleIcon from '@mui/icons-material/People';
 import {useState} from 'react';
 import LoginComponent from "./login";
+import Appointment from "./Appointment";
+import Muibutton from "./Muibutton";
 
 export const Menu = ({ user }) => {
   const [value, setValue] = useState('');
@@ -30,6 +32,7 @@ export const Menu = ({ user }) => {
       user={user}
       handleClick={handleClick}
     />
+    <Muibutton>fdsfesvffrafe</Muibutton>
      <PageCards/>
       <Sidebar
         width={200}

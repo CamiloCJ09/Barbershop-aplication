@@ -2,7 +2,7 @@ import "./App.css";
 import LoginComponent  from "./Component/login";
 import {Menu} from "./Component/Menu";
 import { useState } from "react";
-
+import { BrowserRouter} from "react-router-dom";
 
 
 const mode = "login";
@@ -21,7 +21,7 @@ function App() {
           />
         </div>
       ) : (
-        <Menu user={"barber"} />
+        <Menu user={"client"} />
       )}
     </div>
   );
