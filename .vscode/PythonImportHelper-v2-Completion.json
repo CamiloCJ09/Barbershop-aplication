@@ -1070,11 +1070,47 @@
         "documentation": {}
     },
     {
+        "label": "Appontment",
+        "kind": 6,
+        "importPath": "Api.userApi",
+        "description": "Api.userApi",
+        "peekOfCode": "class Appontment:\n    def __init__(self,barberName, date):\n        self.barberName = barberName\n        self.date = date\n        self.status = False\nclass Barber:\n    def __init__(self):\n        self.clients = []\n    def craeteBarber():\n        return Barber()",
+        "detail": "Api.userApi",
+        "documentation": {}
+    },
+    {
+        "label": "Barber",
+        "kind": 6,
+        "importPath": "Api.userApi",
+        "description": "Api.userApi",
+        "peekOfCode": "class Barber:\n    def __init__(self):\n        self.clients = []\n    def craeteBarber():\n        return Barber()\n    def addBarberAppointment(barber, appointment):\n        barber.clients.append(appointment)\nclass Client:\n    def __init__(self):\n        self.appointments = []",
+        "detail": "Api.userApi",
+        "documentation": {}
+    },
+    {
+        "label": "Client",
+        "kind": 6,
+        "importPath": "Api.userApi",
+        "description": "Api.userApi",
+        "peekOfCode": "class Client:\n    def __init__(self):\n        self.appointments = []\n@userApi.route('/add', methods=['POST'])\ndef create():\n    try:\n        id = uuid.uuid4()    \n        user_Ref.document(id.hex).set(request.json)\n        return jsonify({'status': True}), 200\n    except Exception as e:",
+        "detail": "Api.userApi",
+        "documentation": {}
+    },
+    {
         "label": "create",
         "kind": 2,
         "importPath": "Api.userApi",
         "description": "Api.userApi",
-        "peekOfCode": "def create():\n    try:\n        id = uuid.uuid4()    \n        user_Ref.document(id.hex).set(request.json)\n        return jsonify({'status': True}), 200\n    except Exception as e:\n        return f\"An Error Occured: {e}\"",
+        "peekOfCode": "def create():\n    try:\n        id = uuid.uuid4()    \n        user_Ref.document(id.hex).set(request.json)\n        return jsonify({'status': True}), 200\n    except Exception as e:\n        return f\"An Error Occured: {e}\"\n@userApi.route('/addAppointment', methods=['POST','GET'])\ndef addAppo():\n    try:",
+        "detail": "Api.userApi",
+        "documentation": {}
+    },
+    {
+        "label": "addAppo",
+        "kind": 2,
+        "importPath": "Api.userApi",
+        "description": "Api.userApi",
+        "peekOfCode": "def addAppo():\n    try:\n        if request.method == 'POST':\n            id = uuid.uuid4()\n            user_Ref.document(id.hex).set(request.json)\n            return jsonfy({'status': True}), 200\n        elif request.method == 'GET':\n            return jsonify(user_Ref.get()), 200\n    except Exception as e:\n        return f\"An Error Occured: {e}\"",
         "detail": "Api.userApi",
         "documentation": {}
     },
@@ -1083,7 +1119,7 @@
         "kind": 5,
         "importPath": "Api.userApi",
         "description": "Api.userApi",
-        "peekOfCode": "db = firestore.client()\nuser_Ref = db.collection('user')\nuserApi = Blueprint('userApi', __name__)\n@userApi.route('/add', methods=['POST'])\ndef create():\n    try:\n        id = uuid.uuid4()    \n        user_Ref.document(id.hex).set(request.json)\n        return jsonify({'status': True}), 200\n    except Exception as e:",
+        "peekOfCode": "db = firestore.client()\nuser_Ref = db.collection('user')\nuserApi = Blueprint('userApi', __name__)\nclass Appontment:\n    def __init__(self,barberName, date):\n        self.barberName = barberName\n        self.date = date\n        self.status = False\nclass Barber:\n    def __init__(self):",
         "detail": "Api.userApi",
         "documentation": {}
     },
@@ -1092,7 +1128,7 @@
         "kind": 5,
         "importPath": "Api.userApi",
         "description": "Api.userApi",
-        "peekOfCode": "user_Ref = db.collection('user')\nuserApi = Blueprint('userApi', __name__)\n@userApi.route('/add', methods=['POST'])\ndef create():\n    try:\n        id = uuid.uuid4()    \n        user_Ref.document(id.hex).set(request.json)\n        return jsonify({'status': True}), 200\n    except Exception as e:\n        return f\"An Error Occured: {e}\"",
+        "peekOfCode": "user_Ref = db.collection('user')\nuserApi = Blueprint('userApi', __name__)\nclass Appontment:\n    def __init__(self,barberName, date):\n        self.barberName = barberName\n        self.date = date\n        self.status = False\nclass Barber:\n    def __init__(self):\n        self.clients = []",
         "detail": "Api.userApi",
         "documentation": {}
     },
@@ -1101,7 +1137,7 @@
         "kind": 5,
         "importPath": "Api.userApi",
         "description": "Api.userApi",
-        "peekOfCode": "userApi = Blueprint('userApi', __name__)\n@userApi.route('/add', methods=['POST'])\ndef create():\n    try:\n        id = uuid.uuid4()    \n        user_Ref.document(id.hex).set(request.json)\n        return jsonify({'status': True}), 200\n    except Exception as e:\n        return f\"An Error Occured: {e}\"",
+        "peekOfCode": "userApi = Blueprint('userApi', __name__)\nclass Appontment:\n    def __init__(self,barberName, date):\n        self.barberName = barberName\n        self.date = date\n        self.status = False\nclass Barber:\n    def __init__(self):\n        self.clients = []\n    def craeteBarber():",
         "detail": "Api.userApi",
         "documentation": {}
     },

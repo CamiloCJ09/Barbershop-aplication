@@ -9,7 +9,7 @@ const mode = "login";
 function App() {
   const [logged, setLogged] = useState(false);
   return (
-    <div className="App">
+    <div className="App" id = "app">
       {!logged ? (
         <div className={`app app--is-${mode}`}>
           <LoginComponent

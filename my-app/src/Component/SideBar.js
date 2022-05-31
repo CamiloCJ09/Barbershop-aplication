@@ -1,7 +1,7 @@
 import React from "react";
 import "./styles/Sidebar.css";
 
-export const Sidebar = ({ width, height, children }) => {
+export const Sidebar = ({ width, height, children , handleClick}) => {
     const [xPosition, setX] = React.useState(-width);
       
     const toggleMenu = () => {
