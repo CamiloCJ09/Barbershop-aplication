@@ -10,16 +10,16 @@ import Stack from "@mui/material/Stack";
 import IconButton from '@mui/material/IconButton';
 import { useState } from "react";
 import { useEffect } from "react";
-import {app} from '../firebase';
+import firebase from '../firebase';
 export const AppoimentCards = ({ user, handleClick ,status}) => {
   
   const [appoiments, setAppoiments] = useState([]);
   useEffect(() => {
 
       const getAppoiments = async () => {
-        const db = app.firestore();
+     //   const firebase = firebase.firestore();
         try{
-          const data = await db.collection('appoiments').get()
+          const data = await firebase.collection('appoiments').get()
           const appoiments = data.docs.map(doc => ({ id: doc.id, ...doc.data() }));
           if(appoiments.length > 0){
             setAppoiments(appoiments);

@@ -6,7 +6,7 @@ import AccessibilityNewIcon from '@mui/icons-material/AccessibilityNew';
 import ContentCutIcon from '@mui/icons-material/ContentCut';
 import Checkbox from '@mui/material/Checkbox';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
-import {app} from '../firebase';
+import firebase from './firebase';
 import { Alert } from "@mui/material";
 
 
@@ -14,20 +14,20 @@ const mode = "login";
 function App() {
   const [logged, setLogged] = useState(false);
   const [user, setUser] = useState("barber");
-  const [checkedBarber, setCheckedBarber] = useState(false);
+  const [checkefirebasearber, setCheckefirebasearber] = useState(false);
   const [checkedClient, setCheckedClient] = useState(false); 
-  const db = app.firestore();
+ // const firebase = firebase.firestore();
 
-  const handleSubmit = (e,mode) => {
-    e.preventDefault();
+const handleSubmit = async (event,mode) => {
+    event.preventDefault();
     console.log("este es el mode ",mode);
     
     switch(mode){
       case "login":
         //setUser("barber");
        
-        if(checkedBarber){
-         const barber = await db.collection("barbers").doc(e.target.name.value).get().then(function(doc) {
+        if(checkefirebasearber){
+         const barber = await firebase.collection("barbers").doc(event.target.name.value).get().then(function(doc) {
             if (doc.exists) {
               setUser("barber");
             } else {
@@ -49,7 +49,7 @@ function App() {
           }
          
         }else{
-        const client = await db.collection("clients").doc(e.target.name.value).get().then(function(doc) {
+        const client = await firebase.collection("clients").doc(event.target.name.value).get().then(function(doc) {
             if (doc.exists) {
               setUser("client");
             } else {
@@ -76,13 +76,13 @@ function App() {
         break;
       case "singup":
         const newUser = {
-          name: e.target.name.value,
-          email: e.target.email.value,
-          password: e.target.password.value,
-          type: checkedBarber ? "barber" : "client",
+          name: event.target.name.value,
+          email: event.target.email.value,
+          password: event.target.password.value,
+          type: checkefirebasearber ? "barber" : "client",
         }
         try {
-          const data = await db.collection("users").add(newUser);
+          const data = await firebase.collection("users").add(newUser);
           if(data){
             setUser(newUser.type);
             setLogged(true);
@@ -98,20 +98,7 @@ function App() {
 
   };
 
- 
 
-  const handleChange = (e) => {
-    switch(e.target.name){
-      case "name":
-        data.name = e.target.value;
-        break;
-      case "password":
-        data.password = e.target.value;
-        break;
-      default:
-        break;
-    }
-  };
 
   return (
     <div className="App" id = "app">
@@ -127,10 +114,10 @@ function App() {
              <Checkbox 
              icon={<ContentCutIcon/>} 
              checkedIcon={<CheckCircleOutlineIcon/>}
-              checked={checkedBarber}
+              checked={checkefirebasearber}
               onClick={() => {
                 console.log("checkedClient", !checkedClient);
-                setCheckedBarber(!checkedBarber);
+                setCheckefirebasearber(!checkefirebasearber);
                 setUser("barber");}
               
               }

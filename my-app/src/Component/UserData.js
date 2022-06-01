@@ -1,13 +1,13 @@
 import {useState} from 'react';
 import { useEffect } from "react";
-import {app} from '../firebase';
+import firebase from '../firebase';
 export const UserData = ({userId}) => {
     const [user, setUser] = useState({});
     useEffect(() => {
         const getUser = async () => {
-            const db = app.firestore();
+           // const firebase = firebase.firestore();
             try {
-                const data = await db.collection("users").doc(userId).get();
+                const data = await firebase.collection("users").doc(userId).get();
                 const user = data.data();
                 if (user) {
                     setUser(user);
@@ -35,7 +35,7 @@ export const UserData = ({userId}) => {
                         <h1>No hay usuario</h1>
                     </div>
                 )
-                
+
             }
         </div>
     );
