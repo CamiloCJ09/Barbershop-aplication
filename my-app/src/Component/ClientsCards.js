@@ -9,16 +9,16 @@ import Stack from "@mui/material/Stack";
 import {UserData} from "./UserData";
 import {useState} from 'react';
 import { useEffect } from "react";
-import {app} from '../firebase';
+import firebase from '../firebase';
 export const ClientsCards = ({ user, handleClick }) => {
   const [clicked, setClicked] = useState(false);
   const [clients, setClients] = useState([]);
   const [clientId, setClientId] = useState(0);
   useEffect(() => {
     const getClients = async () => {
-      const db = app.firestore();
+    //  const firebase = firebase.firestore();
       try {
-        const data = await db.collection("clients").get();
+        const data = await firebase.collection("clients").get();
         const clients = data.docs.map(doc => ({ id: doc.id, ...doc.data() }));
         if (clients.length > 0) {
           setClients(clients);

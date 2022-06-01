@@ -14,11 +14,11 @@ const mode = "login";
 function App() {
   const [logged, setLogged] = useState(false);
   const [user, setUser] = useState("barber");
-  const [checkedBarber, setCheckedBarber] = useState(false);
+  const [checkefirebasearber, setCheckefirebasearber] = useState(false);
   const [checkedClient, setCheckedClient] = useState(false); 
-  const db = firebase.firestore();
+ // const firebase = firebase.firestore();
 
-    async function handleSubmit (event,mode)  {
+const handleSubmit = async (event,mode) => {
     event.preventDefault();
     console.log("este es el mode ",mode);
     
@@ -26,8 +26,8 @@ function App() {
       case "login":
         //setUser("barber");
        
-        if(checkedBarber){
-         const barber = await db.collection("barbers").doc(event.target.name.value).get().then(function(doc) {
+        if(checkefirebasearber){
+         const barber = await firebase.collection("barbers").doc(event.target.name.value).get().then(function(doc) {
             if (doc.exists) {
               setUser("barber");
             } else {
@@ -49,7 +49,7 @@ function App() {
           }
          
         }else{
-        const client = await db.collection("clients").doc(event.target.name.value).get().then(function(doc) {
+        const client = await firebase.collection("clients").doc(event.target.name.value).get().then(function(doc) {
             if (doc.exists) {
               setUser("client");
             } else {
@@ -79,10 +79,10 @@ function App() {
           name: event.target.name.value,
           email: event.target.email.value,
           password: event.target.password.value,
-          type: checkedBarber ? "barber" : "client",
+          type: checkefirebasearber ? "barber" : "client",
         }
         try {
-          const data = await db.collection("users").add(newUser);
+          const data = await firebase.collection("users").add(newUser);
           if(data){
             setUser(newUser.type);
             setLogged(true);
@@ -98,9 +98,7 @@ function App() {
 
   };
 
- 
 
-  
   return (
     <div className="App" id = "app">
       {!logged ? (
@@ -115,10 +113,10 @@ function App() {
              <Checkbox 
              icon={<ContentCutIcon/>} 
              checkedIcon={<CheckCircleOutlineIcon/>}
-              checked={checkedBarber}
+              checked={checkefirebasearber}
               onClick={() => {
                 console.log("checkedClient", !checkedClient);
-                setCheckedBarber(!checkedBarber);
+                setCheckefirebasearber(!checkefirebasearber);
                 setUser("barber");}
               
               }

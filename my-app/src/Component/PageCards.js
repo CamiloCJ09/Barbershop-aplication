@@ -11,16 +11,16 @@ import Stack from "@mui/material/Stack";
 import {useState} from 'react';
 import {BarberData} from "./BarberData";
 import { useEffect } from "react";
-import {app} from '../firebase';
+import firebase from '../firebase';
 export const PageCards = () => {
   const [clicked, setClicked] = useState(false);
   const [barbers, setBarbers] = useState([]);
   const [barberId, setBarberId] = useState(0);
   useEffect(() => {
     const getBarbers = async () => {
-      const db = app.firestore();
+     // const firebase = firebase.firestore();
       try {
-        const data = await db.collection("barbers").get();
+        const data = await firebase.collection("barbers").get();
         const barbers = data.docs.map(doc => ({ id: doc.id, ...doc.data() }));
         if (barbers.length > 0) {
           setBarbers(barbers);

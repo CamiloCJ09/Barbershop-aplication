@@ -1,12 +1,12 @@
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Button from '@mui/material/Button';
-import {app} from '../firebase';
+import firebase from '../firebase';
 
 export const CreationComponent = ({ user, dataClicked, }) => {
     console.log("user", user);
     console.log("dataClicked", dataClicked);
-    const db = app.firestore();
+   // const firebase = firebase.firestore();
     const handleSubmit = (event) => {
         event.preventDefault();
         const newUser = {
@@ -15,10 +15,10 @@ export const CreationComponent = ({ user, dataClicked, }) => {
         }
        switch (dataClicked) {
          case "New barber info":
-          db.collection("barbers").add(newUser);
+          firebase.collection("barbers").add(newUser);
            break;
          case "New Client":
-          db.collection("clients").add(newUser);
+          firebase.collection("clients").add(newUser);
               break;
          case "New Appointment": 
                   const newAppointment = {
@@ -27,7 +27,7 @@ export const CreationComponent = ({ user, dataClicked, }) => {
                       date: event.target.date.value,
                       status: "pending",
                   }
-                  db.collection("appointments").add(newAppointment);
+                  firebase.collection("appointments").add(newAppointment);
               break;
          default:
            break;

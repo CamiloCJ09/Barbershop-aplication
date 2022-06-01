@@ -1,13 +1,13 @@
 import {useState} from 'react';
 import { useEffect } from "react";
-import {app} from '../firebase';
+import firebase from '../firebase';
 export const BarberData = ({barberId}) => {
     const [barber, setBarber] = useState({});
     useEffect(() => {
         const getBarber = async () => {
-            const db = app.firestore();
+         //   const firebase = firebase.firestore();
             try {
-                const data = await db.collection("barbers").doc(barberId).get();
+                const data = await firebase.collection("barbers").doc(barberId).get();
                 const barber = data.data();
                 if (barber) {
                     setBarber(barber);
@@ -35,7 +35,7 @@ export const BarberData = ({barberId}) => {
                         <h1>No hay barbero</h1>
                     </div>
                 )
-                
+
             }
         </div>
     );

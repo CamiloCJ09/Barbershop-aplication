@@ -5,9 +5,9 @@ export const UserData = ({userId}) => {
     const [user, setUser] = useState({});
     useEffect(() => {
         const getUser = async () => {
-            const db = firebase.firestore();
+           // const firebase = firebase.firestore();
             try {
-                const data = await db.collection("users").doc(userId).get();
+                const data = await firebase.collection("users").doc(userId).get();
                 const user = data.data();
                 if (user) {
                     setUser(user);
@@ -35,7 +35,7 @@ export const UserData = ({userId}) => {
                         <h1>No hay usuario</h1>
                     </div>
                 )
-                
+
             }
         </div>
     );
