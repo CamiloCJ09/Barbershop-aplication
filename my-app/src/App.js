@@ -27,7 +27,7 @@ function App() {
         //setUser("barber");
        
         if(checkedBarber){
-         const barber = await db.collection("users").doc(e.target.name.value).get().then(function(doc) {
+         const barber = await db.collection("barbers").doc(e.target.name.value).get().then(function(doc) {
             if (doc.exists) {
               setUser("barber");
             } else {
@@ -49,7 +49,7 @@ function App() {
           }
          
         }else{
-        const client = await db.collection("users").doc(e.target.name.value).get().then(function(doc) {
+        const client = await db.collection("clients").doc(e.target.name.value).get().then(function(doc) {
             if (doc.exists) {
               setUser("client");
             } else {

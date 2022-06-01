@@ -18,13 +18,14 @@ export const CreationComponent = ({ user, dataClicked, }) => {
           db.collection("barbers").add(newUser);
            break;
          case "New Client":
-          db.collection("users").add(newUser);
+          db.collection("clients").add(newUser);
               break;
          case "New Appointment": 
                   const newAppointment = {
                       barber: e.target.barber.value,
                       client: e.target.client.value,
                       date: e.target.date.value,
+                      status: "pending",
                   }
                   db.collection("appointments").add(newAppointment);
               break;
