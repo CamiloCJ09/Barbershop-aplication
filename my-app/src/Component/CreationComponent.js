@@ -1,10 +1,11 @@
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Button from '@mui/material/Button';
-import firebase from '../firebase';
+//import firebase from '../firebase';
 
 export const CreationComponent = ({ user, dataClicked, }) => {
-    console.log("user", user);
+  const API = process.env.REACT_APP_API;
+  console.log("user", user);
     console.log("dataClicked", dataClicked);
    // const firebase = firebase.firestore();
     const handleSubmit = (event) => {
@@ -15,10 +16,25 @@ export const CreationComponent = ({ user, dataClicked, }) => {
         }
        switch (dataClicked) {
          case "New barber info":
-          firebase.collection("barbers").add(newUser);
+          //firebase.collection("barbers").add(newUser);
+          fetch(`${API}/barbers`, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(newUser),
+          });
            break;
          case "New Client":
-          firebase.collection("clients").add(newUser);
+          //firebase.collection("clients").add(newUser);
+          fetch(`${API}/clients`, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(newUser),
+          });
+
               break;
          case "New Appointment": 
                   const newAppointment = {
@@ -26,8 +42,15 @@ export const CreationComponent = ({ user, dataClicked, }) => {
                       date: event.target.date.value,
                       status: false
                   }
-                  firebase.collection("clients").doc(user.uid).collection("appointments").add(newAppointment);
-              break;
+                  //firebase.collection("clients").doc(user.uid).collection("appointments").add(newAppointment);
+                  fetch(`${API}/appointments`, {
+                    method: "POST",
+                    headers: {
+                      "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(newAppointment),
+                  });
+                  break;
          default:
            break;
        }

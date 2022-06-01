@@ -6,7 +6,7 @@ import AccessibilityNewIcon from '@mui/icons-material/AccessibilityNew';
 import ContentCutIcon from '@mui/icons-material/ContentCut';
 import Checkbox from '@mui/material/Checkbox';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
-import firebase from './firebase';
+//import firebase from './firebase';
 import { Alert } from "@mui/material";
 
 
@@ -17,79 +17,71 @@ function App() {
   const [checkefirebasearber, setCheckefirebasearber] = useState(false);
   const [checkedClient, setCheckedClient] = useState(false); 
  // const firebase = firebase.firestore();
-
-const handleSubmit = async (event,mode) => {
+ const API = process.env.REACT_APP_API;
+const handleSubmit = (event,mode) => {
     event.preventDefault();
     console.log("este es el mode ",mode);
-    
+    const newUser = {
+      name: event.target.name.value,
+      email: event.target.email.value,
+      password: event.target.password.value,
+      type: checkefirebasearber ? "barber" : "client",
+    }
     switch(mode){
       case "login":
         //setUser("barber");
-       
-        if(checkefirebasearber){
-         const barber = await firebase.collection("barbers").doc(event.target.name.value).get().then(function(doc) {
-            if (doc.exists) {
-              setUser("barber");
-            } else {
-              console.log("No such document!");
-            }
-          }).catch(function(error) {
-                   console.log("Error getting document:", error);
-          });
-
-          if(barber){
-            setUser("barber");
-            setLogged(true);
-          }else{
-            Alert({
-              title: "Error",
-              message: "Check the infotmatio or create an account first",
-              severity: "error"
+        const check = async () => {
+          const response = await fetch(`${API}/users/login`, {
+                method: "GET" , 
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify(newUser),
               });
-          }
-         
-        }else{
-        const client = await firebase.collection("clients").doc(event.target.name.value).get().then(function(doc) {
-            if (doc.exists) {
-              setUser("client");
-            } else {
-              console.log("No such document!");
+              const data = await response.json();
+              return data.status;
             }
-          }).catch(function(error) {
-                   console.log("Error getting document:", error);
-          });
-
-          if(client){
-            setUser("client");
-            setLogged(true);
-          }else{
-            Alert({
-              title: "Error",
-              message: "Check the information or create an account first", 
-              severity: "error"
+              
+            if(check()==="success"){
+              setLogged(true);
+              setUser(newUser.type);
+            }else{
+              Alert({
+                title: "Error",
+                description: "User or password incorrect",
+                severity: "error",
               });
-          }
 
-        
-        }
+
+            }
               
         break;
       case "singup":
-        const newUser = {
-          name: event.target.name.value,
-          email: event.target.email.value,
-          password: event.target.password.value,
-          type: checkefirebasearber ? "barber" : "client",
-        }
-        try {
-          const data = await firebase.collection("users").add(newUser);
-          if(data){
-            setUser(newUser.type);
-            setLogged(true);
-          }
-        } catch (error) {
-          console.log(error);
-        }
+            const singup = async () => {
+              const response = await fetch(`${API}/users/signup`, {
+                    method: "POST",
+                    headers: {
+                      "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(newUser),
+                  });
+                  const data = await response.json();
+                  return data.status;
+                }
+
+                if(singup()==="success"){
+                  setLogged(true);
+                  setUser(newUser.type);
+                }else{
+                  Alert({
+                    title: "Error",
+                    description: "Something went wrong",
+                    severity: "error",
+                  });
+                }
+
+
+
 
         break;
       default:

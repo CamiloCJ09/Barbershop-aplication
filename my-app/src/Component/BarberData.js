@@ -1,23 +1,25 @@
 import {useState} from 'react';
 import { useEffect } from "react";
-import firebase from '../firebase';
+//import firebase from '../firebase';
 export const BarberData = ({barberId}) => {
     const [barber, setBarber] = useState({});
+    const API = process.env.REACT_APP_API;
     useEffect(() => {
         const getBarber = async () => {
-         //   const firebase = firebase.firestore();
-            try {
-                const data = await firebase.collection("barbers").doc(barberId).get();
-                const barber = data.data();
-                if (barber) {
-                    setBarber(barber);
-                } else {
-                    console.log("No hay barberos");
-                    console.log(barber);
-                }
-            } catch (error) {
-                console.log(error);
-            }
+         //corregir  con la ruta de la api
+         fetch(`${API}/barbers/${barberId}`,
+         {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+    
+        }) .then((response) => response.json())
+                .then((data) => {
+                    setBarber(data);
+                    }
+                );            
         };
         getBarber();
     }, []);

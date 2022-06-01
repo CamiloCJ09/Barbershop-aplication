@@ -1,23 +1,26 @@
 import {useState} from 'react';
 import { useEffect } from "react";
-import firebase from '../firebase';
+//import firebase from '../firebase';
 export const UserData = ({userId}) => {
+    const API = process.env.REACT_APP_API;
     const [user, setUser] = useState({});
     useEffect(() => {
         const getUser = async () => {
            // const firebase = firebase.firestore();
-            try {
-                const data = await firebase.collection("users").doc(userId).get();
-                const user = data.data();
-                if (user) {
-                    setUser(user);
-                } else {
-                    console.log("No hay usuarios");
-                    console.log(user);
+            fetch(`${API}/users/${userId}`,
+            {
+                method: 'GET',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+
+            }).then((response) => response.json())
+                .then((data) => {
+                    setUser(data);
                 }
-            } catch (error) {
-                console.log(error);
-            }
+            );
+            
         };
         getUser();
     }, []);

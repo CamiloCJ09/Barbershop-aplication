@@ -10,27 +10,25 @@ import Stack from "@mui/material/Stack";
 import IconButton from '@mui/material/IconButton';
 import { useState } from "react";
 import { useEffect } from "react";
-import firebase from '../firebase';
+//import firebase from '../firebase';
 export const AppoimentCards = ({ user, handleClick ,status}) => {
-  
+  const API = process.env.REACT_APP_API;
   const [appoiments, setAppoiments] = useState([]);
   useEffect(() => {
 
       const getAppoiments = async () => {
-     //   const firebase = firebase.firestore();
-        try{
-          const data = await firebase.collection('appoiments').get()
-          const appoiments = data.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-          if(appoiments.length > 0){
-            setAppoiments(appoiments);
-          }else{
-            console.log('No hay citas');
-            console.log(appoiments);
-          }
-        }catch(error){
-          console.log(error);
-        }
-      
+     //   
+        fetch(`${API}/appointments`,{
+          method: 'GET',
+          headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json'
+          },
+  
+      }).then((response) => response.json())
+          .then((data) => {
+            setAppoiments(data);
+          });
       }
 
       getAppoiments();
