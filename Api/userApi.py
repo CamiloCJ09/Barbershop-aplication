@@ -86,12 +86,19 @@ def addAppointment():
             return f"An Error Ocurred: {e}"
     else:
         try:
-            appo = db.collection("clients")
+            collections = db.collection("clients").document(request.json["id"]).collections()
+            print(collections)
+            for collection in collections:
+                for doc in collection.stream():
+                    print(f'{doc.id} => {doc.to_dict()}')
             db.collection("clients").document(request.json["id"]).update({"appointments": firestore.ArrayRemove([request.json["appointments"]])})
             return jsonify({'status' : True})
         except Exception as e:
             return f"An Error Ocurred: {e}"
 
+@userApi.route('/login', methods='GET')
+def login():
+    
 
 
 @userApi.route('/add', methods=['POST'])

@@ -1132,6 +1132,15 @@
         "documentation": {}
     },
     {
+        "label": "login",
+        "kind": 2,
+        "importPath": "Api.userApi",
+        "description": "Api.userApi",
+        "peekOfCode": "def login():\n@userApi.route('/add', methods=['POST'])\ndef create():\n    try:\n        id = uuid.uuid4()    \n        user_Ref.document(request.json['id']).set(request.json)\n        return jsonify({'status': True}), 200\n    except Exception as e:\n        return f\"An Error Occured: {e}\"\n@userApi.route('/test',methods=['GET','POST'])",
+        "detail": "Api.userApi",
+        "documentation": {}
+    },
+    {
         "label": "create",
         "kind": 2,
         "importPath": "Api.userApi",
