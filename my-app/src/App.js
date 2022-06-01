@@ -6,7 +6,7 @@ import AccessibilityNewIcon from '@mui/icons-material/AccessibilityNew';
 import ContentCutIcon from '@mui/icons-material/ContentCut';
 import Checkbox from '@mui/material/Checkbox';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
-import {app} from '../firebase';
+import firebase from './firebase';
 import { Alert } from "@mui/material";
 
 
@@ -16,10 +16,10 @@ function App() {
   const [user, setUser] = useState("barber");
   const [checkedBarber, setCheckedBarber] = useState(false);
   const [checkedClient, setCheckedClient] = useState(false); 
-  const db = app.firestore();
+  const db = firebase.firestore();
 
-  const handleSubmit = (e,mode) => {
-    e.preventDefault();
+    async function handleSubmit (event,mode)  {
+    event.preventDefault();
     console.log("este es el mode ",mode);
     
     switch(mode){
@@ -27,7 +27,7 @@ function App() {
         //setUser("barber");
        
         if(checkedBarber){
-         const barber = await db.collection("barbers").doc(e.target.name.value).get().then(function(doc) {
+         const barber = await db.collection("barbers").doc(event.target.name.value).get().then(function(doc) {
             if (doc.exists) {
               setUser("barber");
             } else {
@@ -49,7 +49,7 @@ function App() {
           }
          
         }else{
-        const client = await db.collection("clients").doc(e.target.name.value).get().then(function(doc) {
+        const client = await db.collection("clients").doc(event.target.name.value).get().then(function(doc) {
             if (doc.exists) {
               setUser("client");
             } else {
@@ -76,9 +76,9 @@ function App() {
         break;
       case "singup":
         const newUser = {
-          name: e.target.name.value,
-          email: e.target.email.value,
-          password: e.target.password.value,
+          name: event.target.name.value,
+          email: event.target.email.value,
+          password: event.target.password.value,
           type: checkedBarber ? "barber" : "client",
         }
         try {
@@ -100,19 +100,7 @@ function App() {
 
  
 
-  const handleChange = (e) => {
-    switch(e.target.name){
-      case "name":
-        data.name = e.target.value;
-        break;
-      case "password":
-        data.password = e.target.value;
-        break;
-      default:
-        break;
-    }
-  };
-
+  
   return (
     <div className="App" id = "app">
       {!logged ? (

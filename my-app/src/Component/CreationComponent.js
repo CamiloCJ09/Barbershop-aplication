@@ -10,8 +10,8 @@ export const CreationComponent = ({ user, dataClicked, }) => {
     const handleSubmit = (event) => {
         event.preventDefault();
         const newUser = {
-          name: e.target.name.value,
-          description: e.target.description.value,
+          name: event.target.name.value,
+          description: event.target.description.value,
         }
        switch (dataClicked) {
          case "New barber info":
@@ -22,9 +22,9 @@ export const CreationComponent = ({ user, dataClicked, }) => {
               break;
          case "New Appointment": 
                   const newAppointment = {
-                      barber: e.target.barber.value,
-                      client: e.target.client.value,
-                      date: e.target.date.value,
+                      barber: event.target.barber.value,
+                      client: event.target.client.value,
+                      date: event.target.date.value,
                       status: "pending",
                   }
                   db.collection("appointments").add(newAppointment);

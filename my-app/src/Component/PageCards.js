@@ -10,7 +10,6 @@ import "./styles/cards.css";
 import Stack from "@mui/material/Stack";
 import {useState} from 'react';
 import {BarberData} from "./BarberData";
-import { useState } from "react";
 import { useEffect } from "react";
 import {app} from '../firebase';
 export const PageCards = () => {

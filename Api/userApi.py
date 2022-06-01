@@ -4,7 +4,11 @@ from firebase_admin import firestore
 from google.cloud.firestore_v1 import ArrayUnion
 
 db = firestore.client()
-user_Ref = db.collection('user')
+
+#user_Ref = db.collection('user')
+appointments_Ref = db.collection('appointments')
+barber_Ref = db.collection('barbers')
+clients_Ref = db.collection('clients')
 
 userApi = Blueprint('userApi', __name__)
 
@@ -15,7 +19,10 @@ class Appontment:
         self.status = False
         
 class Barber:
-    def __init__(self):
+    def __init__(self, username, password):
+        self.id = 0
+        self.username = username
+        self.password = password
         self.clients = []
 
     def craeteBarber():
@@ -24,8 +31,19 @@ class Barber:
         barber.clients.append(appointment)
     
 class Client:
-    def __init__(self):
+    def __init__(self, username, password):
+        self.id = 0
+        self.username = username
+        self.password = password
+        
         self.appointments = []
+
+
+@userApi.route('/createClient', methods=['POST', 'GET'])
+def createClient():
+    try:
+        
+        clients_Ref.document(request)
 
 @userApi.route('/add', methods=['POST'])
 def create():

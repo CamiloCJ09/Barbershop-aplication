@@ -1082,7 +1082,7 @@
         "kind": 6,
         "importPath": "Api.userApi",
         "description": "Api.userApi",
-        "peekOfCode": "class Appontment:\n    def __init__(self,barberName, date):\n        self.barberName = barberName\n        self.date = date\n        self.status = False\nclass Barber:\n    def __init__(self):\n        self.clients = []\n    def craeteBarber():\n        return Barber()",
+        "peekOfCode": "class Appontment:\n    def __init__(self,barberName, date):\n        self.barberName = barberName\n        self.date = date\n        self.status = False\nclass Barber:\n    def __init__(self, username, password):\n        self.id = 0\n        self.username = username\n        self.password = password",
         "detail": "Api.userApi",
         "documentation": {}
     },
@@ -1091,7 +1091,7 @@
         "kind": 6,
         "importPath": "Api.userApi",
         "description": "Api.userApi",
-        "peekOfCode": "class Barber:\n    def __init__(self):\n        self.clients = []\n    def craeteBarber():\n        return Barber()\n    def addBarberAppointment(barber, appointment):\n        barber.clients.append(appointment)\nclass Client:\n    def __init__(self):\n        self.appointments = []",
+        "peekOfCode": "class Barber:\n    def __init__(self, username, password):\n        self.id = 0\n        self.username = username\n        self.password = password\n        self.clients = []\n    def craeteBarber():\n        return Barber()\n    def addBarberAppointment(barber, appointment):\n        barber.clients.append(appointment)",
         "detail": "Api.userApi",
         "documentation": {}
     },
@@ -1100,7 +1100,16 @@
         "kind": 6,
         "importPath": "Api.userApi",
         "description": "Api.userApi",
-        "peekOfCode": "class Client:\n    def __init__(self):\n        self.appointments = []\n@userApi.route('/add', methods=['POST'])\ndef create():\n    try:\n        id = uuid.uuid4()    \n        user_Ref.document(request.json['id']).set(request.json)\n        return jsonify({'status': True}), 200\n    except Exception as e:",
+        "peekOfCode": "class Client:\n    def __init__(self, username, password):\n        self.id = 0\n        self.username = username\n        self.password = password\n        self.appointments = []\n@userApi.route('/createClient', methods=['POST', 'GET'])\ndef createClient():\n    try:\n        clients_Ref.document(request)",
+        "detail": "Api.userApi",
+        "documentation": {}
+    },
+    {
+        "label": "createClient",
+        "kind": 2,
+        "importPath": "Api.userApi",
+        "description": "Api.userApi",
+        "peekOfCode": "def createClient():\n    try:\n        clients_Ref.document(request)\n@userApi.route('/add', methods=['POST'])\ndef create():\n    try:\n        id = uuid.uuid4()    \n        user_Ref.document(request.json['id']).set(request.json)\n        return jsonify({'status': True}), 200\n    except Exception as e:",
         "detail": "Api.userApi",
         "documentation": {}
     },
@@ -1136,16 +1145,43 @@
         "kind": 5,
         "importPath": "Api.userApi",
         "description": "Api.userApi",
-        "peekOfCode": "db = firestore.client()\nuser_Ref = db.collection('user')\nuserApi = Blueprint('userApi', __name__)\nclass Appontment:\n    def __init__(self,barberName, date):\n        self.barberName = barberName\n        self.date = date\n        self.status = False\nclass Barber:\n    def __init__(self):",
+        "peekOfCode": "db = firestore.client()\n#user_Ref = db.collection('user')\nappointments_Ref = db.collection('appointments')\nbarber_Ref = db.collection('barbers')\nclients_Ref = db.collection('clients')\nuserApi = Blueprint('userApi', __name__)\nclass Appontment:\n    def __init__(self,barberName, date):\n        self.barberName = barberName\n        self.date = date",
         "detail": "Api.userApi",
         "documentation": {}
     },
     {
-        "label": "user_Ref",
+        "label": "#user_Ref",
         "kind": 5,
         "importPath": "Api.userApi",
         "description": "Api.userApi",
-        "peekOfCode": "user_Ref = db.collection('user')\nuserApi = Blueprint('userApi', __name__)\nclass Appontment:\n    def __init__(self,barberName, date):\n        self.barberName = barberName\n        self.date = date\n        self.status = False\nclass Barber:\n    def __init__(self):\n        self.clients = []",
+        "peekOfCode": "#user_Ref = db.collection('user')\nappointments_Ref = db.collection('appointments')\nbarber_Ref = db.collection('barbers')\nclients_Ref = db.collection('clients')\nuserApi = Blueprint('userApi', __name__)\nclass Appontment:\n    def __init__(self,barberName, date):\n        self.barberName = barberName\n        self.date = date\n        self.status = False",
+        "detail": "Api.userApi",
+        "documentation": {}
+    },
+    {
+        "label": "appointments_Ref",
+        "kind": 5,
+        "importPath": "Api.userApi",
+        "description": "Api.userApi",
+        "peekOfCode": "appointments_Ref = db.collection('appointments')\nbarber_Ref = db.collection('barbers')\nclients_Ref = db.collection('clients')\nuserApi = Blueprint('userApi', __name__)\nclass Appontment:\n    def __init__(self,barberName, date):\n        self.barberName = barberName\n        self.date = date\n        self.status = False\nclass Barber:",
+        "detail": "Api.userApi",
+        "documentation": {}
+    },
+    {
+        "label": "barber_Ref",
+        "kind": 5,
+        "importPath": "Api.userApi",
+        "description": "Api.userApi",
+        "peekOfCode": "barber_Ref = db.collection('barbers')\nclients_Ref = db.collection('clients')\nuserApi = Blueprint('userApi', __name__)\nclass Appontment:\n    def __init__(self,barberName, date):\n        self.barberName = barberName\n        self.date = date\n        self.status = False\nclass Barber:\n    def __init__(self, username, password):",
+        "detail": "Api.userApi",
+        "documentation": {}
+    },
+    {
+        "label": "clients_Ref",
+        "kind": 5,
+        "importPath": "Api.userApi",
+        "description": "Api.userApi",
+        "peekOfCode": "clients_Ref = db.collection('clients')\nuserApi = Blueprint('userApi', __name__)\nclass Appontment:\n    def __init__(self,barberName, date):\n        self.barberName = barberName\n        self.date = date\n        self.status = False\nclass Barber:\n    def __init__(self, username, password):\n        self.id = 0",
         "detail": "Api.userApi",
         "documentation": {}
     },
@@ -1154,7 +1190,7 @@
         "kind": 5,
         "importPath": "Api.userApi",
         "description": "Api.userApi",
-        "peekOfCode": "userApi = Blueprint('userApi', __name__)\nclass Appontment:\n    def __init__(self,barberName, date):\n        self.barberName = barberName\n        self.date = date\n        self.status = False\nclass Barber:\n    def __init__(self):\n        self.clients = []\n    def craeteBarber():",
+        "peekOfCode": "userApi = Blueprint('userApi', __name__)\nclass Appontment:\n    def __init__(self,barberName, date):\n        self.barberName = barberName\n        self.date = date\n        self.status = False\nclass Barber:\n    def __init__(self, username, password):\n        self.id = 0\n        self.username = username",
         "detail": "Api.userApi",
         "documentation": {}
     },
