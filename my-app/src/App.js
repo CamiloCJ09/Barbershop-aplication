@@ -23,7 +23,6 @@ const handleSubmit = (event,mode) => {
     console.log("este es el mode ",mode);
     const newUser = {
       name: event.target.name.value,
-      email: event.target.email.value,
       password: event.target.password.value,
       type: checkefirebasearber ? "barber" : "client",
     }
