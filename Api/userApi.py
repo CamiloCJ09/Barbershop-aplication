@@ -1,8 +1,7 @@
 import uuid
 from flask import Blueprint, request, jsonify
 from firebase_admin import firestore
-import requests
-from requests.exceptions import HTTPError
+from google.cloud.firestore_v1 import ArrayUnion
 
 db = firestore.client()
 user_Ref = db.collection('user')

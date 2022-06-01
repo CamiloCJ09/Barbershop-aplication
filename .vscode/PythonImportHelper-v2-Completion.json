@@ -49,20 +49,11 @@
         "documentation": {}
     },
     {
-        "label": "requests",
-        "kind": 6,
+        "label": "ArrayUnion",
+        "importPath": "google.cloud.firestore_v1",
+        "description": "google.cloud.firestore_v1",
         "isExtraImport": true,
-        "importPath": "requests",
-        "description": "requests",
-        "detail": "requests",
-        "documentation": {}
-    },
-    {
-        "label": "HTTPError",
-        "importPath": "requests.exceptions",
-        "description": "requests.exceptions",
-        "isExtraImport": true,
-        "detail": "requests.exceptions",
+        "detail": "google.cloud.firestore_v1",
         "documentation": {}
     },
     {
