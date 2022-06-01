@@ -49,6 +49,23 @@
         "documentation": {}
     },
     {
+        "label": "requests",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "requests",
+        "description": "requests",
+        "detail": "requests",
+        "documentation": {}
+    },
+    {
+        "label": "HTTPError",
+        "importPath": "requests.exceptions",
+        "description": "requests.exceptions",
+        "isExtraImport": true,
+        "detail": "requests.exceptions",
+        "documentation": {}
+    },
+    {
         "label": "gyp.common",
         "kind": 6,
         "isExtraImport": true,
@@ -1092,7 +1109,7 @@
         "kind": 6,
         "importPath": "Api.userApi",
         "description": "Api.userApi",
-        "peekOfCode": "class Client:\n    def __init__(self):\n        self.appointments = []\n@userApi.route('/add', methods=['POST'])\ndef create():\n    try:\n        id = uuid.uuid4()    \n        user_Ref.document(id.hex).set(request.json)\n        return jsonify({'status': True}), 200\n    except Exception as e:",
+        "peekOfCode": "class Client:\n    def __init__(self):\n        self.appointments = []\n@userApi.route('/add', methods=['POST'])\ndef create():\n    try:\n        id = uuid.uuid4()    \n        user_Ref.document(request.json['id']).set(request.json)\n        return jsonify({'status': True}), 200\n    except Exception as e:",
         "detail": "Api.userApi",
         "documentation": {}
     },
@@ -1101,7 +1118,16 @@
         "kind": 2,
         "importPath": "Api.userApi",
         "description": "Api.userApi",
-        "peekOfCode": "def create():\n    try:\n        id = uuid.uuid4()    \n        user_Ref.document(id.hex).set(request.json)\n        return jsonify({'status': True}), 200\n    except Exception as e:\n        return f\"An Error Occured: {e}\"\n@userApi.route('/addAppointment', methods=['POST','GET'])\ndef addAppo():\n    try:",
+        "peekOfCode": "def create():\n    try:\n        id = uuid.uuid4()    \n        user_Ref.document(request.json['id']).set(request.json)\n        return jsonify({'status': True}), 200\n    except Exception as e:\n        return f\"An Error Occured: {e}\"\n@userApi.route('/test',methods=['GET','POST'])\ndef test():\n    test = request.json",
+        "detail": "Api.userApi",
+        "documentation": {}
+    },
+    {
+        "label": "test",
+        "kind": 2,
+        "importPath": "Api.userApi",
+        "description": "Api.userApi",
+        "peekOfCode": "def test():\n    test = request.json\n    db.collection(\"user\").document(test['id']).update({\n                \"Name\" : firestore.ArrayUnion([\"Pedro\"])\n            })\n    return jsonify({'status': test['Name']}), 200\n@userApi.route('/addAppointment', methods=['POST','GET'])\ndef addAppo():\n    try:\n        if request.method == 'POST':",
         "detail": "Api.userApi",
         "documentation": {}
     },
@@ -1110,7 +1136,7 @@
         "kind": 2,
         "importPath": "Api.userApi",
         "description": "Api.userApi",
-        "peekOfCode": "def addAppo():\n    try:\n        if request.method == 'POST':\n            id = uuid.uuid4()\n            user_Ref.document(id.hex).set(request.json)\n            return jsonfy({'status': True}), 200\n        elif request.method == 'GET':\n            return jsonify(user_Ref.get()), 200\n    except Exception as e:\n        return f\"An Error Occured: {e}\"",
+        "peekOfCode": "def addAppo():\n    try:\n        if request.method == 'POST':\n            id = uuid.uuid4()\n            db.collection(\"user\").doccument(request.headers['name']).update({\n                \"appointments\" : firestore.ArrayUnion([request.headers])\n            })\n            request.headers['appointments']\n            user_Ref.document(id.hex).set(request.json)\n            return jsonfy({'status': True}), 200",
         "detail": "Api.userApi",
         "documentation": {}
     },
