@@ -5,11 +5,19 @@ class LoginComponent extends React.Component {
     super(props);
     this.state = {
       mode: this.props.mode,
+      user: this.props.user,
     };
   }
   toggleMode() {
     var newMode = this.state.mode === "login" ? "signup" : "login";
     this.setState({ mode: newMode });
+    console.log("mode ",this.state.mode);
+  }
+
+  toggleUser(){
+    var newUser = this.state.user === "barber" ? "client" : "barber";
+    this.setState({ user: newUser });
+    console.log(this.state.user);
   }
   render() {
     return (
@@ -34,6 +42,7 @@ class LoginComponent extends React.Component {
             </div>
           </header>
           <LoginForm mode={this.state.mode} onSubmit={this.props.onSubmit} />
+         
         </section>
       </div>
     );
