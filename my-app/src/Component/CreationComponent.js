@@ -23,11 +23,10 @@ export const CreationComponent = ({ user, dataClicked, }) => {
          case "New Appointment": 
                   const newAppointment = {
                       barber: event.target.barber.value,
-                      client: event.target.client.value,
                       date: event.target.date.value,
-                      status: "pending",
+                      status: false
                   }
-                  firebase.collection("appointments").add(newAppointment);
+                  firebase.collection("clients").doc(user.uid).collection("appointments").add(newAppointment);
               break;
          default:
            break;
