@@ -1,11 +1,38 @@
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Button from '@mui/material/Button';
+import {app} from '../firebase';
 
-
-export const CreationComponent = ({ user, handleClick, dataClicked,input }) => {
+export const CreationComponent = ({ user, dataClicked, }) => {
     console.log("user", user);
     console.log("dataClicked", dataClicked);
+    const db = app.firestore();
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        const newUser = {
+          name: e.target.name.value,
+          description: e.target.description.value,
+        }
+       switch (dataClicked) {
+         case "New barber info":
+          db.collection("barbers").add(newUser);
+           break;
+         case "New Client":
+          db.collection("users").add(newUser);
+              break;
+         case "New Appointment": 
+                  const newAppointment = {
+                      barber: e.target.barber.value,
+                      client: e.target.client.value,
+                      date: e.target.date.value,
+                  }
+                  db.collection("appointments").add(newAppointment);
+              break;
+         default:
+           break;
+       }
+    }
+
    
   return (
     <div id ="album">
@@ -14,6 +41,7 @@ export const CreationComponent = ({ user, handleClick, dataClicked,input }) => {
           {dataClicked === "New client" ? (
             <div>
               <h1>Add a new client</h1>
+              <form onSubmit={handleSubmit}>
               <Box
                 component="form"
                 sx={{
@@ -26,16 +54,21 @@ export const CreationComponent = ({ user, handleClick, dataClicked,input }) => {
                   id="outlined-basic"
                   label="Name"
                   variant="outlined"
+                  name="name"
                 />
                 <TextField
                   id="outlined-basic"
-                  label="Last Name"
+                  label="Description"
                   variant="outlined"
+                  name="description"
                 />
               </Box>
-              <Button variant="contained" color="success">
+              <Button variant="contained" color="success" type="submit">
                 Save
               </Button>
+              
+              </form>
+              
             </div>
           ) : (
             <div></div>
@@ -46,6 +79,7 @@ export const CreationComponent = ({ user, handleClick, dataClicked,input }) => {
           {dataClicked === "New Appointment" ? (
             <div>
               <h1> New appointments</h1>
+              <form onSubmit={handleSubmit}>
               <Box
                 component="form"
                 sx={{
@@ -56,14 +90,19 @@ export const CreationComponent = ({ user, handleClick, dataClicked,input }) => {
               >
                 <TextField
                   id="outlined-basic"
-                  label="Name"
+                  label="Barber"
                   variant="outlined"
+                  name="barber"
+
                 />
                 <TextField
                   id="outlined-basic"
-                  label="Last Name"
+                  label="Client"
                   variant="outlined"
+                  name="client"
                 />
+                <br></br>
+               
               </Box>
 
               <div>
@@ -72,12 +111,14 @@ export const CreationComponent = ({ user, handleClick, dataClicked,input }) => {
                   id="outlined-basic"
                   variant="outlined"
                   type={'date'}
+                  name="date"
                 />
               </div>
               <br></br>
-              <Button variant="contained" color="success">
+              <Button variant="contained" color="success" type="input">
                 Save
               </Button>
+              </form>
             </div>
           ) : (
             <div></div>
@@ -88,6 +129,7 @@ export const CreationComponent = ({ user, handleClick, dataClicked,input }) => {
       {dataClicked === "New barber info" ? (
         <div>
           <h1> New Barber info</h1>
+          <form onSubmit={handleSubmit}>
           <Box
                 component="form"
                 sx={{
@@ -100,16 +142,20 @@ export const CreationComponent = ({ user, handleClick, dataClicked,input }) => {
                   id="outlined-basic"
                   label="Name"
                   variant="outlined"
+                  name="name"
                 />
                 <TextField
                   id="outlined-basic"
-                  label="Last Name"
+                  label="Description"
                   variant="outlined"
+                  name="description"
                 />
               </Box>
-              <Button variant="contained" color="success">
+              <Button variant="contained" color="success" type = "submit">
                 Save
               </Button>
+          </form>
+
         </div>
       ) : (
         <div></div>
