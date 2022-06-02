@@ -86,7 +86,6 @@ const handleSubmit = (event,mode) => {
   };
 
 
-
   return (
     <div className="App" id = "app">
       {!logged ? (
