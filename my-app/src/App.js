@@ -78,10 +78,6 @@ const handleSubmit = (event,mode) => {
                     severity: "error",
                   });
                 }
-
-
-
-
         break;
       default:
         break;
